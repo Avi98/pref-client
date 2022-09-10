@@ -1,0 +1,63 @@
+/* Inconsolata */
+@font-face {
+	font-family: 'Inconsolata Bold';
+	src: url('/assets/fonts/inconsolata/Inconsolata-Bold.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Inconsolata ExtraBold';
+	src: url('/assets/fonts/inconsolata/Inconsolata-ExtraBold.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Inconsolata ExtraLight';
+	src: url('/assets/fonts/inconsolata/Inconsolata-ExtraLight.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Inconsolata Medium';
+	src: url('/assets/fonts/inconsolata/Inconsolata-Medium.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Inconsolata Regular';
+	src: url('/assets/fonts/inconsolata/Inconsolata-Regular.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+
+/* roboto */
+@font-face {
+	font-family: 'Roboto Regular';
+	src: url('/assets/fonts/roboto/Roboto-Regular.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Roboto Bold';
+	src: url('/assets/fonts/roboto/Roboto-Bold.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Roboto Italic';
+	src: url('/assets/fonts/roboto/Roboto-Italic.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Roboto Light';
+	src: url('/assets/fonts/roboto/Roboto-Light.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Roboto Thin';
+	src: url('/assets/fonts/roboto/Roboto-Thin.woff2') format('.woff2');
+	font-display: swap;
+	font-style: normal;
+}
