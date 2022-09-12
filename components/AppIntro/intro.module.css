@@ -1,0 +1,44 @@
+
+.story{
+	--cardHeight:25rem;
+	--cardWidth:25rem;
+	background-image: linear-gradient(to bottom left,#72C6EF,#004E8F);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+
+.card >div {
+	border-radius: 30px 30px 0px 0px; 
+}
+
+.cardPlaceholder1 {
+	opacity: 10%;
+	height: 1rem;
+	width: calc(var(--cardWidth) - 5rem);
+	background: rgb(248 249 251 );
+	
+}
+.cardPlaceholder2{
+	opacity: 20%;
+	height: 1rem;
+	width: calc(var(--cardWidth) - 3rem);
+	background: rgb(248 249 251);
+}
+
+
+
+.imageContainer img {
+	border-radius: 10px; 
+}

@@ -1,0 +1,24 @@
+html {
+	color-scheme: light;
+}
+
+html.dark{
+	color-scheme: dark;
+}
+
+html,
+body,
+body >div
+{
+	padding: 0;
+	font-size: 10px;
+	margin:0;
+	
+}
+
+.container {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	flex-direction: column;
+}
