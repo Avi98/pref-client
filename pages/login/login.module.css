@@ -1,0 +1,18 @@
+.login {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+.info {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to bottom left,#72C6EF,#004E8F);
+}
+
+.loginForm {
+	height: 100%;
+	width: 100%;
+	
+}

@@ -1,0 +1,27 @@
+.carousel{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+width: 100%;
+}
+
+.imgWrapper {
+	position: relative;
+	height: 20rem;
+	width: 20rem;
+	
+}
+
+.imgWrapper img {
+	border-radius: 0.5rem;
+}
+.absolute{
+	position: absolute;
+}
+
+.carouselNav{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
