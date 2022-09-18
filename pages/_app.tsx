@@ -4,6 +4,7 @@ import "./styles/fonts.css";
 import "./styles/global.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
+import { Header } from "../components/layout/Header";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -20,7 +21,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }
 
   //auth layout
-  const navBar = <div>header</div>;
+  const navBar = () => <Header />;
   const sideBar = <div> sideBar</div>;
   const footer = <div> footer</div>;
   return (

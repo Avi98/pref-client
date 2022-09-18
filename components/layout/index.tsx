@@ -3,7 +3,7 @@ import React from "react";
 import style from "./layout.module.css";
 
 interface ILayout {
-  header: React.ReactNode;
+  header: () => React.ReactNode;
   sidebar: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
@@ -19,7 +19,7 @@ export const Layout = ({
   const openLayout = !(isAuth && footer);
   return (
     <div className={style.layoutContainer}>
-      <nav className={style.navBar}>{header}</nav>
+      <nav className={style.navBar}>{header()}</nav>
       {isAuth ? (
         <div
           className={classNames({

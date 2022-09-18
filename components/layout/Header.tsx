@@ -1,10 +1,25 @@
 export const Header = () => {
-  <nav className="style.nav">
-    <div className="style.header">
-      <div className="style.logo">
-        <svg></svg>
+  return (
+    <nav className="style.nav">
+      <div className="style.header">
+        <div className="style.headerLeft">
+          <button
+            onClick={() => {
+              //@ts-ignore
+              if (window.__theme === "dark") {
+                //@ts-ignore
+                window.__setPreferredTheme("light");
+                //@ts-ignore
+              } else if (window.__theme === "light") {
+                //@ts-ignore
+                window.__setPreferredTheme("dark");
+              }
+            }}
+          >
+            set theme
+          </button>
+        </div>
       </div>
-      <div className="style.headerLeft"></div>
-    </div>
-  </nav>;
+    </nav>
+  );
 };

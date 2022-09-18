@@ -22,4 +22,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	padding: 5px;
+}
+
+.headerLeft > button {
+	background-color: aliceblue;
 }
