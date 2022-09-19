@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import style from "./carousel.module.css";
+import { NextNavButton, PrevNavButton } from "./components/NavButton";
+import classNames from "classnames";
 
 interface ICarousel {
   items: {
@@ -75,7 +77,7 @@ export const Carousel = (props: ICarousel) => {
   };
 
   return (
-    <div className={style.carousel}>
+    <div className={flexCol(style.carousel)}>
       <div className={style.imgWrapper}>
         {Object.values(props.items).map((item, key) => {
           return (
@@ -95,10 +97,22 @@ export const Carousel = (props: ICarousel) => {
           );
         })}
       </div>
-      <div className={style.carouselNav}>
-        <button onClick={handlePrev}>{"<"}</button>
-        <button onClick={handleNext}>{">"}</button>
+      <div className={flexCol()}>
+        <div className={flexRow()}>
+          <PrevNavButton onClick={handlePrev} />
+          <NextNavButton onClick={handleNext} />
+        </div>
       </div>
     </div>
   );
 };
+
+function flexCol(className?: string) {
+  if (!className) return classNames("flexCol");
+  return classNames("flexCol", { [className]: true });
+}
+
+function flexRow(cls?: string) {
+  if (!cls) return classNames("flexRow");
+  return classNames("flexRow", { [cls]: true });
+}
