@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import classNames from "classnames";
 import style from "./carousel.module.css";
 import { NextNavButton, PrevNavButton } from "./components/NavButton";
-import classNames from "classnames";
 
 interface ICarousel {
   items: {
@@ -15,28 +15,40 @@ interface ICarousel {
   autoPlay: boolean;
 }
 
+const positionFrame = (frames: any, state: any) => {
+  Object.values(frames).forEach((el: any, i) => {
+    if (i !== state.active) {
+      if (i) {
+        el.style.transform = `translateY(-${i * 10}px) scaleX(-0.${10 - i})`;
+        el.style.opacity = `${15 / i}%`;
+        return;
+      }
+      el.style.transform = `translateY(-${state.active * 10}px) scaleX(-0.${
+        10 - state.active
+      })`;
+      el.style.opacity = `${15 / state.active}%`;
+      return;
+    }
+
+    if (i === state.active) {
+      el.style.transform = "";
+      el.style.opacity = "1";
+    }
+  });
+};
+
 export const Carousel = (props: ICarousel) => {
   const framesRef = React.useRef<Record<number, HTMLDivElement>>({});
-  const [currentFrameIndex, setCurrentFrameIndex] = React.useState(0);
   const [carouselState, setState] = React.useState({
     active: 0,
     preActive: 0,
     isNext: true,
   });
-  const positionFrame = React.useCallback(() => {
-    Object.values(framesRef.current).forEach((el, i) => {
-      if (i !== currentFrameIndex) {
-        el.style.transform = `translateY(-${i * 10}px) scaleX(-0.${10 - i})`;
-        el.style.opacity = `${15 / i}%`;
-      }
-    });
-  }, [currentFrameIndex]);
 
   React.useEffect(() => {
-    if (Object.values(framesRef.current).length) {
-      positionFrame();
-    }
-  }, [positionFrame]);
+    positionFrame(framesRef.current, carouselState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleNext = (e: React.SyntheticEvent) => {
     const { autoPlay } = props;
@@ -74,15 +86,21 @@ export const Carousel = (props: ICarousel) => {
       preActive: carouselState.active,
       isNext,
     });
+    if (isNext) {
+    }
   };
 
+  Object.values(framesRef.current).forEach((el, i) => {
+    const a = el.getBoundingClientRect();
+    console.log({ [i]: a });
+  });
   return (
     <div className={flexCol(style.carousel)}>
       <div className={style.imgWrapper}>
         {Object.values(props.items).map((item, key) => {
           return (
             <div
-              key={key}
+              key={`${item.imgPath}_${key}`}
               className={style.absolute}
               ref={(ref) => ref && (framesRef.current[key] = ref)}
             >
@@ -90,15 +108,32 @@ export const Carousel = (props: ICarousel) => {
                 src={item.imgPath}
                 data-id={"test"}
                 alt="product"
-                height="200px"
-                width="250px"
+                height="400px"
+                width="500px"
               />
             </div>
           );
         })}
       </div>
       <div className={flexCol()}>
-        <div className={flexRow()}>
+        {Object.values(props.items).map((item, index) => {
+          return (
+            <div
+              className={flexCol(
+                index !== carouselState.active ? style.hide : ""
+              )}
+              key={`${item.imgPath}_${index}`}
+            >
+              <h2 id="title" className={style.title} key={item.imgPath}>
+                {item.title}
+              </h2>
+              <p id="subtitle" className={style.subtitle}>
+                {item.subTitle}
+              </p>
+            </div>
+          );
+        })}
+        <div className={flexRow(style.zIndex)}>
           <PrevNavButton onClick={handlePrev} />
           <NextNavButton onClick={handleNext} />
         </div>
@@ -107,12 +142,12 @@ export const Carousel = (props: ICarousel) => {
   );
 };
 
-function flexCol(className?: string) {
+function flexCol(...className: string[]) {
   if (!className) return classNames("flexCol");
-  return classNames("flexCol", { [className]: true });
+  return classNames("flexCol", ...className);
 }
 
-function flexRow(cls?: string) {
+function flexRow(...cls: string[]) {
   if (!cls) return classNames("flexRow");
-  return classNames("flexRow", { [cls]: true });
+  return classNames("flexRow", ...cls);
 }

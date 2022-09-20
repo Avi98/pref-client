@@ -7,14 +7,31 @@ width: 100%;
 
 .imgWrapper {
 	position: relative;
-	height: 20rem;
-	width: 20rem;
-	
+	height: 40rem;
+	width: 40rem;
 }
 
 .imgWrapper img {
 	border-radius: 0.5rem;
 }
+
 .absolute{
 	position: absolute;
+
+}
+
+.hide {
+	display: none;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	color:var(--text-1);
+	margin:0;
+}
+
+.subtitle{
+	color:var(--text-1);
+	font-size: 1.5rem;
 }
