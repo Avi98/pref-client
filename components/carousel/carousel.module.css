@@ -7,6 +7,8 @@ width: 100%;
 
 .imgWrapper {
 	position: relative;
+	display: flex;
+	align-items: center;
 	height: 40rem;
 	width: 40rem;
 }
@@ -17,7 +19,6 @@ width: 100%;
 
 .absolute{
 	position: absolute;
-
 }
 
 .hide {

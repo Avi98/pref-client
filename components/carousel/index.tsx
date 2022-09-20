@@ -15,15 +15,82 @@ interface ICarousel {
   autoPlay: boolean;
 }
 
-const positionFrame = (frames: any, state: any) => {
+interface ICarouselState {
+  active: number;
+  preActive: number;
+  isNext: boolean;
+}
+
+const animate = (
+  frames: Record<number, HTMLDivElement>,
+  state: ICarouselState,
+  containerRef: HTMLDivElement
+) => {
+  const current = frames[state.active];
+  const lastActive = frames[state.preActive];
+
+  const containerPos = containerRef?.getBoundingClientRect();
+
+  const lastActivePos = lastActive.getBoundingClientRect().y - containerPos.y;
+
+  if (containerPos?.x) {
+    //current item fade in
+    current.animate(
+      [
+        {
+          opacity: "10%",
+        },
+        {
+          transform: `translateY(-9px) scaleX(0.${9})`,
+          opacity: "80%",
+          zIndex: 9,
+        },
+        {
+          transform: `translateY(0px) scale(1)`,
+          opacity: 1,
+        },
+      ],
+      {
+        duration: 1000,
+        easing: "ease-in",
+      }
+    );
+  }
+
+  //prev item fade out
+  lastActive.animate(
+    [
+      {
+        transform: `translateY(0) scale(1)`,
+        opacity: "80%",
+      },
+      {
+        transform: `translateY(10px) scale(1.02) `,
+        opacity: "10%",
+      },
+      {
+        opacity: "0",
+      },
+    ],
+    {
+      duration: 1000,
+      easing: "ease-in",
+    }
+  );
+};
+const positionFrame = (
+  frames: Record<number, HTMLDivElement>,
+  state: ICarouselState
+) => {
   Object.values(frames).forEach((el: any, i) => {
     if (i !== state.active) {
+      el.style.zIndex = "0";
       if (i) {
-        el.style.transform = `translateY(-${i * 10}px) scaleX(-0.${10 - i})`;
+        el.style.transform = `translateY(-${i * 10}px) scaleX(0.${10 - i})`;
         el.style.opacity = `${15 / i}%`;
         return;
       }
-      el.style.transform = `translateY(-${state.active * 10}px) scaleX(-0.${
+      el.style.transform = `translateY(-${state.active * 10}px) scaleX(0.${
         10 - state.active
       })`;
       el.style.opacity = `${15 / state.active}%`;
@@ -39,6 +106,7 @@ const positionFrame = (frames: any, state: any) => {
 
 export const Carousel = (props: ICarousel) => {
   const framesRef = React.useRef<Record<number, HTMLDivElement>>({});
+  const containerRef = React.useRef(null);
   const [carouselState, setState] = React.useState({
     active: 0,
     preActive: 0,
@@ -81,22 +149,25 @@ export const Carousel = (props: ICarousel) => {
   };
 
   const setNext = (index: number, isNext: boolean) => {
-    setState({
+    const state = {
       active: index,
       preActive: carouselState.active,
       isNext,
-    });
-    if (isNext) {
-    }
+    };
+    setState(state);
+    if (containerRef.current)
+      animate(framesRef.current, state, containerRef.current);
+    setTimeout(() => {
+      positionFrame(framesRef.current, state);
+    }, 1000);
   };
 
   Object.values(framesRef.current).forEach((el, i) => {
     const a = el.getBoundingClientRect();
-    console.log({ [i]: a });
   });
   return (
     <div className={flexCol(style.carousel)}>
-      <div className={style.imgWrapper}>
+      <div className={style.imgWrapper} ref={containerRef}>
         {Object.values(props.items).map((item, key) => {
           return (
             <div
