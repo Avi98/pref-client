@@ -31,8 +31,6 @@ const animate = (
 
   const containerPos = containerRef?.getBoundingClientRect();
 
-  const lastActivePos = lastActive.getBoundingClientRect().y - containerPos.y;
-
   if (containerPos?.x) {
     //current item fade in
     current.animate(
@@ -121,6 +119,16 @@ const positionBody = (
   });
 };
 
+const fadeInTitle = (
+  title: Record<string, HTMLDivElement>,
+  state: ICarouselState
+) => {
+  title[state.active].style.transition = "opacity 0.5s ease-in-out";
+  title[state.active].style.opacity = "1";
+
+  title[state.preActive].style.opacity = "0";
+};
+
 export const Carousel = (props: ICarousel) => {
   const framesRef = React.useRef<Record<number, HTMLDivElement>>({});
   const bodyRef = React.useRef<Record<number, HTMLDivElement>>({});
@@ -176,6 +184,7 @@ export const Carousel = (props: ICarousel) => {
     setState(state);
     if (containerRef.current)
       animate(framesRef.current, state, containerRef.current);
+    fadeInTitle(bodyRef.current, state);
     setTimeout(() => {
       positionFrame(framesRef.current, state);
     }, 1000);
