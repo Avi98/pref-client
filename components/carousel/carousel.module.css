@@ -1,38 +1,40 @@
 
-
-.carousel{
-height: 100%;
-width: 100%;
+.root {
+	height: calc(100% - 20rem);
+	display: grid;
+	place-items: center;
+	height: 100%;
+	grid-template-rows: 3fr 1fr 1fr ;
 }
 
-.imgWrapper {
+.wrapper {
 	position: relative;
+
+}
+
+.imageContainer {
 	display: flex;
 	align-items: center;
 	height: 40rem;
 	width: 40rem;
 }
 
-.imgWrapper img {
+.wrapper img {
 	border-radius: 0.5rem;
 }
 
-.absolute{
+.absolute {
 	position: absolute;
-}
-
-.hide {
-	display: none;
 }
 
 .title {
 	font-size: 2rem;
 	font-weight: bold;
-	color:var(--text-1);
-	margin:0;
+	color: var(--text-1);
+	margin: 0;
 }
 
-.subtitle{
-	color:var(--text-1);
+.subtitle {
+	color: var(--text-1);
 	font-size: 1.5rem;
 }

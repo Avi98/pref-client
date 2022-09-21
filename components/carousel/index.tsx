@@ -78,6 +78,7 @@ const animate = (
     }
   );
 };
+
 const positionFrame = (
   frames: Record<number, HTMLDivElement>,
   state: ICarouselState
@@ -104,8 +105,25 @@ const positionFrame = (
   });
 };
 
+const positionBody = (
+  body: Record<number, HTMLDivElement>,
+  state: ICarouselState
+) => {
+  Object.values(body).forEach((el, i) => {
+    if (i === state.active) {
+      el.style.zIndex = "9";
+      el.style.opacity = "1";
+    }
+    if (i !== state.active) {
+      el.style.zIndex = "auto";
+      el.style.opacity = "0";
+    }
+  });
+};
+
 export const Carousel = (props: ICarousel) => {
   const framesRef = React.useRef<Record<number, HTMLDivElement>>({});
+  const bodyRef = React.useRef<Record<number, HTMLDivElement>>({});
   const containerRef = React.useRef(null);
   const [carouselState, setState] = React.useState({
     active: 0,
@@ -115,6 +133,7 @@ export const Carousel = (props: ICarousel) => {
 
   React.useEffect(() => {
     positionFrame(framesRef.current, carouselState);
+    positionBody(bodyRef.current, carouselState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -162,12 +181,12 @@ export const Carousel = (props: ICarousel) => {
     }, 1000);
   };
 
-  Object.values(framesRef.current).forEach((el, i) => {
-    const a = el.getBoundingClientRect();
-  });
   return (
-    <div className={flexCol(style.carousel)}>
-      <div className={style.imgWrapper} ref={containerRef}>
+    <div className={style.root}>
+      <div
+        className={classNames(style.wrapper, style.imageContainer)}
+        ref={containerRef}
+      >
         {Object.values(props.items).map((item, key) => {
           return (
             <div
@@ -190,10 +209,9 @@ export const Carousel = (props: ICarousel) => {
         {Object.values(props.items).map((item, index) => {
           return (
             <div
-              className={flexCol(
-                index !== carouselState.active ? style.hide : ""
-              )}
+              className={flexCol(style.absolute)}
               key={`${item.imgPath}_${index}`}
+              ref={(ref) => ref && (bodyRef.current[index] = ref)}
             >
               <h2 id="title" className={style.title} key={item.imgPath}>
                 {item.title}
@@ -204,10 +222,10 @@ export const Carousel = (props: ICarousel) => {
             </div>
           );
         })}
-        <div className={flexRow(style.zIndex)}>
-          <PrevNavButton onClick={handlePrev} />
-          <NextNavButton onClick={handleNext} />
-        </div>
+      </div>
+      <div className={flexRow()}>
+        <PrevNavButton onClick={handlePrev} />
+        <NextNavButton onClick={handleNext} />
       </div>
     </div>
   );
