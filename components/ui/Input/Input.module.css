@@ -7,6 +7,7 @@
 }
 
 .root input {
+	width: 100%;
 	height: var(--inputHeight);
 	flex:1;
 	border-radius: 4px;
@@ -23,6 +24,7 @@
 }
  
 .inputWrapper {
+	width: 100%;
 	position: relative;
 	min-height: calc(var(--inputHeight) + var(--fontSize) + 5px);
 }

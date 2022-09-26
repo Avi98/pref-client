@@ -5,6 +5,8 @@
 	place-items: center;
 	height: 100%;
 	grid-template-rows: 3fr 1fr 1fr ;
+	background: var(--bg-gradient);
+
 }
 
 .wrapper {
