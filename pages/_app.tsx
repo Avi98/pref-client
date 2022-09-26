@@ -1,6 +1,5 @@
 import React from "react";
 import { NextPage } from "next";
-import "./styles/fonts.css";
 import "./styles/global.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
