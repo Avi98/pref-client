@@ -30,11 +30,11 @@
 .title {
 	font-size: 2rem;
 	font-weight: bold;
-	color: var(--surface-4);
+	color: var(--title);
 	margin: 0;
 }
 
 .subtitle {
-	color: var(--surface-4);
+	color: var(--title);
 	font-size: 1.5rem;
 }

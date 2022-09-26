@@ -5,3 +5,7 @@
 3. yup form validations
 4. SWR for server-side query
 5. apollo client for graphql
+
+## TODO
+
+1. carousel is not smooth. Look into the carousel component
