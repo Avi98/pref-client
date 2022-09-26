@@ -10,7 +10,6 @@ interface IInput extends React.HTMLProps<HTMLInputElement> {
   type?: string;
   inline?: boolean;
   disabled?: boolean;
-  hasError?: boolean;
   error?: string;
   placeholder: string;
 }
@@ -19,20 +18,19 @@ export const BaseInput = React.forwardRef(
   (
     {
       label,
-      hasError,
       disabled = false,
       placeholder,
       type = "text",
       inline = true,
       inputSize = "sm",
-      error = "Invalid Input",
+      error,
       ...inputProps
     }: IInput,
     ref: React.Ref<any>
   ) => {
     const root = classNames(s.root, {
       [s.inline]: inline,
-      [s.error]: hasError,
+      [s.error]: Boolean(error),
       [s.disabled]: disabled,
     });
 

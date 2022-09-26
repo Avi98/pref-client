@@ -1,18 +1,32 @@
 .login {
-	display: flex;
-	align-items: center;
 	height: 100%;
 	width: 100%;
-}
-
-.info {
-	height: 100%;
-	width: 100%;
-	background: var(--bg-gradient);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }
 
 .loginForm {
-	height: 100%;
-	width: 100%;
-	
+	justify-self: center;
+	margin-top: 3rem;
 }
+
+.loginForm > h2 {
+	font-size: 4rem;
+	font-weight: 400;
+	color: var(--text-1);
+}
+
+.loginForm > h3 {
+	font-weight: 500;
+	font-size: 1.4rem;
+	color: var(--text-2);
+}
+
+.inputContainer {
+	display: grid;
+	place-items: center;
+	justify-items: flex-start;
+	grid-template-columns: 1fr 1fr;
+}
+
+
