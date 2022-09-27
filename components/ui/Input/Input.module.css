@@ -1,0 +1,76 @@
+.root{
+	width: 100%;
+	font-size: 14px;
+	line-height: 1.6;
+	--fontSize: 14px;
+	--inputHeight: 30px;
+}
+
+.root input {
+	width: 100%;
+	box-sizing: border-box;
+	height: var(--inputHeight);
+	border-radius: 4px;
+	margin: 0;
+	padding: 0 0 0 10px;
+	border:none;
+	outline:1px solid var(--surface-3);
+	transition: border-color 100ms ease;
+}
+
+.root label {
+	display: block;
+	font-weight: 500;
+	font-size: var(--fontSize);
+	text-transform: capitalize;
+}
+ 
+.inputWrapper {
+	width: 100%;
+	min-height: calc(var(--inputHeight) + var(--fontSize) + 10px);
+}
+
+.inline .inputWrapper{
+	display: inline-block;
+}
+
+.root .errorWrapper {
+	display: none;
+	color:var(--error-border);
+	font-size: var(--fontSize);
+}
+
+.root input:visited, 
+.root input:active,
+.root input:focus-within {
+outline-color: var(--primary-color);
+}
+
+.error input,
+.error input:visited, 
+.error input:active,
+.error input:focus-within {
+	outline-color: var(--error-border);
+}
+
+.error label {
+	color: var(--error-border);
+}
+
+.error .errorWrapper{
+	display: block;
+}
+
+
+.inline label {
+	display: inline-block;
+}
+.inline label::after {
+	content: ':';
+	margin-right: 5px;
+}
+
+.inline input {
+	padding-left: 10px;
+}
+

@@ -1,0 +1,32 @@
+.layoutContainer {
+	display: grid;
+	min-height: 100vh;
+	grid-template-columns: repeat(8, 1fr);
+  	grid-template-rows: 4rem calc(100% - 12rem) 8rem;
+  	grid-gap: 0.5rem;
+  	grid-template-areas: 	"header		header   	header  	header 		header 		header 		header 		header"
+                       		"sidebar	main     	main		main 		main 		main		main		main"
+                       		"side   	footer   	footer 		footer   	footer   	footer 		footer 		footer";
+}
+
+.navBar{
+	grid-area: header;
+}
+.sidebar{
+	grid-area: sidebar;
+}
+.footer{
+	grid-area: footer;
+}
+.main {
+	grid-area: main;
+}
+
+.fullWidth {
+	grid-column: 1 / 9;
+	grid-row:span 2;
+}
+
+.fullHeight {
+	grid-row: span 2;
+}

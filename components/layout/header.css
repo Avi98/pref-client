@@ -1,0 +1,30 @@
+.nav{
+	display: block;
+	min-height: 20rem;
+	
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.headerLeft {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 5px;
+}
+
+.headerLeft > button {
+	background-color: aliceblue;
+}

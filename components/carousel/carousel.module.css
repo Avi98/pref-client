@@ -1,0 +1,42 @@
+
+.root {
+	height: calc(100% - 20rem);
+	display: grid;
+	place-items: center;
+	height: 100%;
+	grid-template-rows: 3fr 1fr 1fr ;
+	background: var(--bg-gradient);
+
+}
+
+.wrapper {
+	position: relative;
+
+}
+
+.imageContainer {
+	display: flex;
+	align-items: center;
+	height: 40rem;
+	width: 40rem;
+}
+
+.wrapper img {
+	border-radius: 0.5rem;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	color: var(--title);
+	margin: 0;
+}
+
+.subtitle {
+	color: var(--title);
+	font-size: 1.5rem;
+}

@@ -1,0 +1,50 @@
+.root {
+	display: flex;
+	min-width: 30px;
+	align-items: center;
+	font-size: 1.4rem;
+	color: var(--text-2);
+	margin: 0.5rem 0rem;
+	width: fit-content;
+	justify-content: space-between;
+}
+
+.root div {
+	position: relative;
+	display: flex;
+}
+.root input {
+	margin: 0;
+	border-radius: 5px;
+	border:1px solid var(--primary-color);
+	transition: all 100ms ease;
+	appearance: none;
+	height: 20px;
+	width: 20px;
+	
+}
+
+.root svg {
+	opacity: 0;
+	transform: translate(3px, 3px) scale(0.9);
+	transition: transform 100ms ease;
+	position: absolute;
+	color: var(--gray-1);
+}
+
+.root label {
+	margin: 0 14px;
+}
+ 
+.checked svg{
+	opacity: 1;
+}
+
+.checked input{
+	background-color: var(--primary-color);
+}
+
+
+
+
+
