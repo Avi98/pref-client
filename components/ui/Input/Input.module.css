@@ -27,7 +27,7 @@
  
 .inputWrapper {
 	width: 100%;
-	min-height: calc(var(--inputHeight) + var(--fontSize) + 5px);
+	min-height: calc(var(--inputHeight) + var(--fontSize) + 10px);
 }
 
 .inline .inputWrapper{
