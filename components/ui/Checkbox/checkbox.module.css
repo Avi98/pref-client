@@ -1,10 +1,12 @@
 .root {
 	display: flex;
+	min-width: 30px;
 	align-items: center;
 	font-size: 1.4rem;
 	color: var(--text-2);
 	margin: 0.5rem 0rem;
 	width: fit-content;
+	justify-content: space-between;
 }
 
 .root div {

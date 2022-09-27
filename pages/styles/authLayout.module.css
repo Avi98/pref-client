@@ -1,0 +1,70 @@
+.login {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.headerSection {
+	grid-column: span 4;
+}
+
+.formContainer {
+	gap:2rem;
+	display: grid;
+	padding: 10rem;
+	grid-template-columns: repeat(4, 1fr);
+	background-color: var(--surface-2);
+	grid-template-rows: repeat(4, minmax(10rem, 15rem));
+}
+
+.formContainer  h2 {
+	font-size: 4rem;
+	font-weight: 400;
+	color: var(--text-1);
+}
+
+.formContainer  h3 {
+	font-weight: 500;
+	font-size: 1.4rem;
+	color: var(--text-2);
+}
+
+.formContainer label {
+	font-size: 14px;
+	font-weight: 500;
+	margin: 10px 0;
+}
+
+.formContainer form {
+	grid-column: span 4;
+	grid-row: span 3;
+
+}
+
+.formContainer .inputContainer {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.formContainer .link {
+	display: flex;
+	justify-content: end;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--gray-2);
+}
+
+.formContainer .submitWrapper{
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem 0.5rem;
+}
+
+.formContainer .centerText {
+	text-align: center;
+	font-size: 1.4rem;
+	font-weight: 400;
+	color: var(--text-2);
+}
+
+
