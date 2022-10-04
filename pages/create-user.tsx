@@ -27,11 +27,7 @@ const CreateUser = () => {
     resolver: zodResolver(createUserSchema),
   });
 
-  console.log({ errors });
-
-  const submitLogin = (d: IFieldVales) => {
-    console.log({ d });
-  };
+  const submitLogin = (d: IFieldVales) => {};
 
   return (
     <div className={s.login}>

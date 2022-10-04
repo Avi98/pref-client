@@ -22,3 +22,34 @@ export const appInfo = {
       "Some lengthy Info 3 needs to be updated later on. Some lengthy Info needs to be updated later on",
   },
 };
+
+export const getFirst = (list: any[]): any => {
+  return list.length > 0 ? list[0] : null;
+};
+
+export const defaultRedirectRoutes = {
+  loggedIn: "dashboard",
+  anonyms: "login",
+};
+
+/**
+ * if has redirect param in path then redirect to redirect path
+ * else
+ * redirect to that path provided
+ *
+ */
+export const redirectPath = (path: string) => {
+  //dummy URL
+  const dummyUrl = new URL(path, "http://localhost:3000/");
+
+  const redirect = dummyUrl.searchParams.get("redirect");
+  if (!redirect) return path;
+  return redirect;
+};
+
+export const appendRedirectPath = (path: string) => {
+  const dummyUrl = new URL(path, "http://localhost:3000/");
+
+  dummyUrl.searchParams.append("redirect", path);
+  return dummyUrl.search;
+};

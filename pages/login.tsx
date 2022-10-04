@@ -5,6 +5,9 @@ import s from "./styles/authLayout.module.css";
 import { Carousel } from "../components/carousel";
 import { BaseInput } from "../components/ui/Input/Input";
 import { ControlledCheckbox } from "../components/ui/Checkbox";
+import { loginUser } from "../api/user";
+import { getFirst, redirectPath } from "../utils";
+import { ToastTypeEnum, useToast } from "../hooks/useToast";
 
 const appInfo = {
   0: {
@@ -28,20 +31,36 @@ const appInfo = {
 };
 
 interface IFieldVales {
-  email: string;
+  userName: string;
   password: string;
   isRememberMe: boolean;
 }
 
 const Login = () => {
-  const { register, handleSubmit, watch, control } = useForm<IFieldVales>({
+  const { register, handleSubmit, control } = useForm<IFieldVales>({
     defaultValues: {
       isRememberMe: false,
     },
   });
 
-  const submitLogin = (d: IFieldVales) => {
-    console.log({ d });
+  const openToast = useToast();
+
+  const submitLogin = async (d: IFieldVales) => {
+    await loginUser({
+      userName: d.userName,
+      password: d.password,
+    })
+      .then((data) => {
+        openToast({
+          message: `Welcome back ${data.login.userName}`,
+          props: { type: ToastTypeEnum.SUCCESS },
+        });
+        /** redirect on success */
+        redirectPath("dashboard");
+      })
+      .catch((e: Error) => {
+        openToast({ message: e.message, props: { type: ToastTypeEnum.ERROR } });
+      });
   };
 
   return (
@@ -56,12 +75,11 @@ const Login = () => {
         </div>
         <form onSubmit={handleSubmit(submitLogin)}>
           <div className={s.inputContainer} id="email">
-            <label>E-mail</label>
+            <label>Username</label>
             <BaseInput
-              type="email"
-              placeholder="email"
+              placeholder="userName"
               inputSize="xs"
-              {...register("email", { required: true })}
+              {...register("userName", { required: true })}
             />
           </div>
           <div className={s.inputContainer} id="password">
