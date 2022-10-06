@@ -38,12 +38,12 @@ export const defaultRedirectRoutes = {
  * redirect to that path provided
  *
  */
-export const redirectPath = (path: string) => {
+export const redirectPath = (path: string, defaultPath: string) => {
   //dummy URL
   const dummyUrl = new URL(path, "http://localhost:3000/");
 
   const redirect = dummyUrl.searchParams.get("redirect");
-  if (!redirect) return path;
+  if (!redirect) return defaultPath;
   return redirect;
 };
 

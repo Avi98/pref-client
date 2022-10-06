@@ -6,7 +6,7 @@ import {
   redirectPath,
 } from "./utils";
 
-const anonymousPath = ["/", "/login", "/forgot-password", "/create-user"];
+const anonymousPath = ["/_next/", "/login", "/forgot-password", "/create-user"];
 
 /**
  * just check for Authorization header token simply allow it as token validation is done on BE
@@ -16,8 +16,11 @@ const anonymousPath = ["/", "/login", "/forgot-password", "/create-user"];
  * @param request
  */
 export async function middleware(request: NextRequest) {
-  const hasAuthToken = request.headers.get("authorization");
-  const isOpenRoute = anonymousPath.includes(request.nextUrl.pathname);
+  const hasAuthToken = request.cookies.get("REFRESH_TOKEN");
+  const isOpenRoute = Boolean(
+    anonymousPath.filter((path) => request.nextUrl.pathname.includes(path))
+      .length
+  );
 
   if (!hasAuthToken) {
     if (isOpenRoute) return NextResponse.next();
@@ -30,9 +33,10 @@ export async function middleware(request: NextRequest) {
 
   //if logged in and on anonymous route. redirect to dashboard
   if (isOpenRoute && hasAuthToken) {
-    const path = redirectPath(defaultRedirectRoutes.loggedIn);
-
-    return NextResponse.redirect(path);
+    const path = redirectPath("", defaultRedirectRoutes.loggedIn);
+    const redirect = new URL(path, request.nextUrl.origin);
+    console.log({ path });
+    return NextResponse.redirect(`/${redirect}`);
   }
 
   return NextResponse.next();
@@ -40,5 +44,15 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/((?!api|static|favicon.ico|_next|_assets).*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - static (static files)
+     * - favicon.ico (favicon file)
+     * - _next dir
+     * _ _assets
+     */
+    "/((?!api|static|_next|_assets|favicon.ico).*)",
+  ],
 };

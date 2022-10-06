@@ -8,7 +8,10 @@ interface ILoginUser {
 }
 
 const url = process.env.NEXT_PUBLIC_BASE_URL || "";
-const graphqlClient = new Fetch(url);
+const graphqlClient = new Fetch(url, {
+  credentials: "include",
+  mode: "cors",
+});
 
 export const loginUser = (variables: ILoginUser) => {
   const mutation = gql`

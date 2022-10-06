@@ -6,8 +6,9 @@ import { Carousel } from "../components/carousel";
 import { BaseInput } from "../components/ui/Input/Input";
 import { ControlledCheckbox } from "../components/ui/Checkbox";
 import { loginUser } from "../api/user";
-import { getFirst, redirectPath } from "../utils";
+import { defaultRedirectRoutes, getFirst, redirectPath } from "../utils";
 import { ToastTypeEnum, useToast } from "../hooks/useToast";
+import { useRouter } from "next/router";
 
 const appInfo = {
   0: {
@@ -44,19 +45,29 @@ const Login = () => {
   });
 
   const openToast = useToast();
+  const router = useRouter();
 
   const submitLogin = async (d: IFieldVales) => {
+    await loginUser({ userName: d.userName, password: d.password });
+    await loginUser({ userName: d.userName, password: d.password });
+    await loginUser({ userName: d.userName, password: d.password });
     await loginUser({
       userName: d.userName,
       password: d.password,
     })
       .then((data) => {
+        const redirect = `/${redirectPath(
+          router.asPath,
+          defaultRedirectRoutes.loggedIn
+        )}`;
+
+        router.push(redirect);
         openToast({
           message: `Welcome back ${data.login.userName}`,
           props: { type: ToastTypeEnum.SUCCESS },
         });
+
         /** redirect on success */
-        redirectPath("dashboard");
       })
       .catch((e: Error) => {
         openToast({ message: e.message, props: { type: ToastTypeEnum.ERROR } });
