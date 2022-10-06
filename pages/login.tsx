@@ -48,9 +48,6 @@ const Login = () => {
   const router = useRouter();
 
   const submitLogin = async (d: IFieldVales) => {
-    await loginUser({ userName: d.userName, password: d.password });
-    await loginUser({ userName: d.userName, password: d.password });
-    await loginUser({ userName: d.userName, password: d.password });
     await loginUser({
       userName: d.userName,
       password: d.password,
