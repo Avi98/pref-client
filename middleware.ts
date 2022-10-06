@@ -6,21 +6,17 @@ import {
   redirectPath,
 } from "./utils";
 
+const ROOT_PATH = "/";
 const anonymousPath = ["/_next/", "/login", "/forgot-password", "/create-user"];
 
-/**
- * just check for Authorization header token simply allow it as token validation is done on BE
- *
- * in HTTP client is the we get status 401 then call regenerate auth-token api.
- * If that fails then logout the user deleting api
- * @param request
- */
 export async function middleware(request: NextRequest) {
   const hasAuthToken = request.cookies.get("REFRESH_TOKEN");
   const isOpenRoute = Boolean(
     anonymousPath.filter((path) => request.nextUrl.pathname.includes(path))
       .length
   );
+
+  if (request.nextUrl.pathname === ROOT_PATH) return NextResponse.next();
 
   if (!hasAuthToken) {
     if (isOpenRoute) return NextResponse.next();
@@ -42,7 +38,6 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
     /*
