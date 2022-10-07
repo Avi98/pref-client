@@ -1,9 +1,12 @@
+import "./styles/global.css";
+import "react-toastify/dist/ReactToastify.min.css";
+
 import React from "react";
 import { NextPage } from "next";
-import "./styles/global.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
 import { Header } from "../components/layout/Header";
+import { ToastContainer } from "react-toastify";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -27,6 +30,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     //TODO for testing login and logout
     <Layout header={navBar} sidebar={sideBar} isAuth={false}>
       <Component {...pageProps} />
+      <ToastContainer />
     </Layout>
   );
 }

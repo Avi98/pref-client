@@ -1,0 +1,15 @@
+export enum PermissionsEnum {
+  project_read = "project_read",
+  project_write = "project_write",
+  project_admin = "project_admin",
+  project_release = "project_release",
+  team_read = "team_read",
+  team_write = "team_write",
+  team_admin = "team_admin",
+  org_read = "org_read",
+  org_write = "org_write",
+  org_admin = "org_admin",
+  member_read = "member_read",
+  member_write = "member_write",
+  member_admin = "member_admin",
+}

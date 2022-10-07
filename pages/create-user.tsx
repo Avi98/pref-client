@@ -1,20 +1,26 @@
-import * as z from "zod";
 import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
+import { gql } from "graphql-request";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import s from "./styles/authLayout.module.css";
 import { Carousel } from "../components/carousel";
 import { BaseInput } from "../components/ui/Input/Input";
 import { appInfo } from "../utils";
 import { createUserSchema } from "../utils/validationSchema";
+import { createUser } from "../api/user";
+import { ToastTypeEnum, useToast } from "../hooks/useToast";
+import { RoleEnum } from "../enums/RoleEnum";
+import { PermissionsEnum } from "../enums/PermissionEnum";
 
 interface IFieldVales {
   email: string;
-  newPassword: string;
+  password: string;
   name: string;
-  newUserName: string;
+  userName: string;
   repeatPassword: string;
 }
 
@@ -26,11 +32,62 @@ const CreateUser = () => {
   } = useForm<IFieldVales>({
     resolver: zodResolver(createUserSchema),
   });
+  const openToast = useToast();
+  const router = useRouter();
 
-  console.log({ errors });
-
-  const submitLogin = (d: IFieldVales) => {
-    console.log({ d });
+  const submitLogin = async (formValues: IFieldVales) => {
+    const userFields = gql`
+      fragment user_fields on UserReturnType {
+        email
+        userName
+        emailVerified
+      }
+    `;
+    await createUser<{
+      name: string;
+      email: string;
+      userName: string;
+      emailVerified: boolean;
+    }>(
+      {
+        userInfo: {
+          userName: formValues.userName,
+          email: formValues.email,
+          password: formValues.password,
+          name: formValues.name,
+          role: RoleEnum.ADMIN,
+          permission: [
+            PermissionsEnum.project_admin,
+            PermissionsEnum.project_read,
+            PermissionsEnum.project_write,
+          ],
+        },
+      },
+      userFields
+    )
+      .then((data) => {
+        router.push({
+          pathname: "/notify-user/verifyEmail",
+          query: {
+            email: data.email,
+            name: data.email,
+          },
+        });
+        openToast({
+          message: `Please verify your mail by logging into the mail`,
+          props: {
+            type: ToastTypeEnum.SUCCESS,
+          },
+        });
+      })
+      .catch((errors) => {
+        openToast({
+          message: errors.message || "Error occurred while create the user",
+          props: {
+            type: ToastTypeEnum.ERROR,
+          },
+        });
+      });
   };
 
   return (
@@ -52,12 +109,12 @@ const CreateUser = () => {
             />
           </div>
           <div className={s.inputContainer} id="userName">
-            <label>User name</label>
+            <label>UserName</label>
             <BaseInput
               placeholder="username"
               inputSize="xs"
-              error={errors["newUserName"]?.message}
-              {...register("newUserName", { required: true })}
+              error={errors["userName"]?.message}
+              {...register("userName", { required: true })}
             />
           </div>
           <div className={s.inputContainer} id="email">
@@ -76,8 +133,8 @@ const CreateUser = () => {
               type="password"
               placeholder="password"
               inputSize="xs"
-              error={errors["newPassword"]?.message}
-              {...register("newPassword", { required: true })}
+              error={errors["password"]?.message}
+              {...register("password", { required: true })}
             />
           </div>
           <div className={s.inputContainer} id="repeat-password">
