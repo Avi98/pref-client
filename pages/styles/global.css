@@ -120,3 +120,7 @@ body >div
 .mt-10 {
 	margin-top: 1rem;
 }
+
+.Toastify__toast-container {
+	font-size: 1.4rem;
+}
