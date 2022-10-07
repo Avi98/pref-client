@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { IUser } from "../interfaces/UserInterface";
+import { Create_User, IUser } from "../interfaces/UserInterface";
 import { Fetch } from "./httpClient";
 
 interface ILoginUser {
@@ -43,14 +43,18 @@ export const logoutUser = (user: IUser) => {
   return graphqlClient.fetch(mutation, user.id);
 };
 
-export const createUser = (userInfo: IUser, userFields: string) => {
+export const createUser = <T>(
+  userInfo: { userInfo: Create_User },
+  userFields: string
+): Promise<T> => {
   const mutation = gql`
     mutation Signup($userInfo: CreateUserInput!) {
       signup(userInfo: $userInfo) {
-        ...${userFields}
+        ...user_fields
       }
     }
+    ${userFields}
   `;
 
-  return graphqlClient.fetch(mutation, userInfo);
+  return graphqlClient.fetch<T>(mutation, userInfo);
 };

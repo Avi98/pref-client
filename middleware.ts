@@ -7,7 +7,13 @@ import {
 } from "./utils";
 
 const ROOT_PATH = "/";
-const anonymousPath = ["/_next/", "/login", "/forgot-password", "/create-user"];
+const anonymousPath = [
+  "/_next/",
+  "/login",
+  "/forgot-password",
+  "/create-user",
+  "/notify-user",
+];
 
 export async function middleware(request: NextRequest) {
   const hasAuthToken = request.cookies.get("REFRESH_TOKEN");
