@@ -37,7 +37,6 @@ export async function middleware(request: NextRequest) {
   if (isOpenRoute && hasAuthToken) {
     const path = redirectPath("", defaultRedirectRoutes.loggedIn);
     const redirect = new URL(path, request.nextUrl.origin);
-    console.log({ path });
     return NextResponse.redirect(`/${redirect}`);
   }
 

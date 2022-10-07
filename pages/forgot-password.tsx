@@ -34,9 +34,7 @@ interface IFieldVales {
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm<IFieldVales>();
 
-  const submitLogin = (d: IFieldVales) => {
-    console.log({ d });
-  };
+  const submitLogin = (d: IFieldVales) => {};
 
   return (
     <div className={s.login}>
